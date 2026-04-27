@@ -1,56 +1,880 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Diet Done </title>
-  
-  <!-- Tailwind CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Diet Done — Personalised nutrition and wellness programmes for weight management, clinical health, and women's wellness. Based in Coimbatore, serving clients across India.">
+<title>Diet Done | Personalised Nutrition & Wellness</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #3DB54A;
+    --green-dark: #2d9138;
+    --green-light: #EAF3DE;
+    --slate: #3D5166;
+    --slate-dark: #2c3d4f;
+    --mint: #F0F7F1;
+    --white: #ffffff;
+    --text: #1a1a1a;
+    --text-mid: #4a4a4a;
+    --text-muted: #6b7280;
+    --border: #e5e7eb;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--white); overflow-x: hidden; }
+  h1, h2 { font-family: 'Playfair Display', serif; }
+  img { display: block; max-width: 100%; }
 
-  <style>
-    :root{
-      --brand-dark:#33484d;
-      --brand-green:#17b13b;
-      --brand-accent:#7fe05c;
-    }
-  </style>
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--white);
+    padding: 0 6%;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 76px;
+    box-shadow: 0 1px 0 var(--border), 0 4px 24px rgba(0,0,0,0.06);
+  }
+  .nav-logo img { height: 60px; width: auto; }
+  .nav-links { display: flex; align-items: center; gap: 30px; }
+  .nav-links a { color: var(--text-mid); text-decoration: none; font-size: 14px; font-weight: 400; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--green); }
+  .nav-cta { background: var(--green) !important; color: var(--white) !important; padding: 9px 22px; border-radius: 50px; font-weight: 600 !important; }
+  .nav-cta:hover { background: var(--green-dark) !important; }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; border: none; background: none; padding: 4px; }
+  .hamburger span { width: 22px; height: 2px; background: var(--slate); border-radius: 2px; display: block; }
+
+  /* HERO */
+  .hero {
+    background: var(--slate);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 90vh;
+    overflow: hidden;
+  }
+  .hero-content { padding: 80px 6% 80px; display: flex; flex-direction: column; justify-content: center; }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(61,181,74,0.15); border: 1px solid rgba(61,181,74,0.3);
+    color: var(--white); font-size: 11px; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 6px 14px; border-radius: 50px; margin-bottom: 24px; width: fit-content;
+  }
+  .hero-eyebrow::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
+  .hero h1 { font-size: clamp(40px, 5vw, 72px); color: var(--white); line-height: 1.08; letter-spacing: -0.02em; margin-bottom: 20px; }
+  .hero h1 span { color: var(--green); }
+  .hero-sub { font-size: 16px; color: rgba(255,255,255,0.68); line-height: 1.75; max-width: 500px; margin-bottom: 36px; font-weight: 300; }
+  .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 52px; }
+  .btn-primary { background: var(--green); color: var(--white); padding: 13px 28px; border-radius: 50px; font-size: 15px; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: background 0.2s, transform 0.15s; }
+  .btn-primary:hover { background: var(--green-dark); transform: translateY(-2px); }
+  .btn-secondary { background: transparent; color: var(--white); padding: 13px 28px; border-radius: 50px; border: 1.5px solid rgba(255,255,255,0.3); font-size: 15px; font-weight: 400; text-decoration: none; transition: border-color 0.2s, background 0.2s; }
+  .btn-secondary:hover { border-color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.05); }
+  .stats-strip { display: flex; gap: 36px; flex-wrap: wrap; }
+  .stat-num { font-family: 'DM Sans', serif; font-size: 34px; font-weight: 900; color: var(--green); line-height: 1; }
+  .stat-label { font-size: 14px; color: #ffffff; margin-top: 4px; }
+  .hero-image { position: relative; overflow: hidden; }
+  .hero-collage { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; width: 100%; height: 100%; min-height: 90vh; gap: 4px; }
+  .hc-item { position: relative; overflow: hidden; }
+  .hc-item img { width: 100%; height: 100%; object-fit: cover; object-position: center; transition: transform 0.5s ease; display: block; }
+  .hc-item:hover img { transform: scale(1.06); }
+  .hc-label { position: absolute; bottom: 12px; left: 12px; z-index: 3; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #fff; background: rgba(61,181,74,0.92); padding: 4px 10px; border-radius: 50px; }
+
+
+
+  /* SECTIONS */
+  section { padding: 88px 6%; }
+  .section-eyebrow { display: block; font-size: 15px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green); margin-bottom: 12px; }
+  .section-heading { font-size: clamp(28px, 3.5vw, 44px); color: var(--slate); line-height: 1.15; letter-spacing: -0.01em; margin-bottom: 14px; }
+  .section-sub { font-size: 16px; color: var(--text-muted); line-height: 1.75; max-width: 600px; font-weight: 300; }
+  .section-hdr { margin-bottom: 48px; }
+
+  /* ABOUT */
+  .about { background: var(--mint); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+  .about-img-wrap { border-radius: 20px; overflow: hidden; height: 480px; }
+  .about-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+  .about-text p { font-size: 15px; color: var(--text-mid); line-height: 1.8; margin-bottom: 16px; font-weight: 300; }
+  .cred-group { margin-top: 28px; }
+  .cred-label { display: block; font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--green); margin-bottom: 10px; margin-top: 16px; }
+  .cred-pills { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 8px; }
+  .pill { font-size: 12px; padding: 5px 13px; border-radius: 50px; border: 1px solid var(--border); color: var(--slate); background: var(--white); font-weight: 500; }
+  .pill-green { background: var(--green-light); border-color: #C0DD97; color: #27500A; }
+
+  /* WHY */
+  .why { background: var(--white); }
+  .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .fcard { background: var(--mint); border-radius: 16px; padding: 28px; border: 1px solid transparent; transition: border-color 0.2s, transform 0.2s; }
+  .fcard:hover { border-color: var(--green); transform: translateY(-3px); }
+  .fcard-icon { width: 60px; height: 60px; border-radius: 12px; background: var(--green-light); display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
+  .fcard-icon svg { width: 40px; height: 40px; }
+  .fcard h3 { font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; color: var(--slate); margin-bottom: 8px; }
+  .fcard p { font-size: 14px; color: var(--text-muted); line-height: 1.65; font-weight: 300; }
+  .payment-note { margin-top: 32px; background: var(--green-light); border-left: 4px solid var(--green); border-radius: 0 10px 10px 0; padding: 16px 20px; }
+  .payment-note p { font-size: 14px; color: #1e5c28; line-height: 1.6; }
+  .payment-note strong { font-weight: 600; }
+
+  /* MOTIVATIONAL BANNER */
+  .motive-banner { position: relative; height: 300px; overflow: hidden; }
+  .motive-banner img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
+  .motive-overlay { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(40,60,75,0.92) 50%, rgba(40,60,75,0.4)); display: flex; align-items: center; padding: 0 6%; }
+  .motive-text h2 { font-size: clamp(22px, 3vw, 36px); color: var(--white); margin-bottom: 10px; max-width: 500px; }
+  .motive-text p { font-size: 15px; color: rgba(255,255,255,0.7); max-width: 440px; font-weight: 300; line-height: 1.65; }
+
+  /* PROGRAMMES */
+  .programmes { background: var(--mint); }
+  .prog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .prog-card { background: var(--white); border-radius: 20px; border: 1.5px solid var(--border); overflow: hidden; display: flex; flex-direction: column; transition: transform 0.2s, box-shadow 0.2s; }
+  .prog-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(61,81,102,0.12); }
+  .prog-card.featured { border-color: var(--green); border-width: 2px; }
+  .prog-img { height: 240px; overflow: hidden; position: relative; flex-shrink: 0; }
+  .prog-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+  .prog-card:hover .prog-img img { transform: scale(1.04); }
+  .prog-img-overlay { position: absolute; inset: 0; background: rgba(40,60,75,0.18); }
+  .prog-body { padding: 24px 24px 16px; flex: 1; display: flex; flex-direction: column; }
+  .prog-badge { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; background: var(--green); color: var(--white); padding: 3px 10px; border-radius: 50px; margin-bottom: 12px; width: fit-content; }
+  .prog-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; flex-shrink: 0; }
+  .prog-card h3 { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--slate); margin-bottom: 5px; }
+  .prog-price { font-size: 15px; font-weight: 600; color: var(--green); margin-bottom: 2px; }
+  .prog-discount { font-size: 13px; color: var(--text-muted); margin-bottom: 12px; }
+  .prog-desc { font-size: 14px; color: var(--text-muted); line-height: 1.65; margin-bottom: 14px; font-weight: 300; flex: 1; }
+  .dur-row { display: flex; flex-wrap: wrap; gap: 5px; }
+  .dur-pill { font-size: 11px; padding: 3px 9px; border-radius: 50px; background: var(--green-light); color: #27500A; border: 1px solid #C0DD97; font-weight: 500; }
+  .prog-divider { height: 1px; background: var(--border); margin: 16px 24px; }
+  .prog-list { padding: 0 24px; }
+  .prog-li { display: flex; align-items: flex-start; gap: 9px; margin-bottom: 9px; }
+  .prog-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--green); flex-shrink: 0; margin-top: 5px; }
+  .prog-li span { font-size: 13px; color: var(--text-mid); line-height: 1.45; }
+  .prog-footer { padding: 16px 24px 22px; }
+  .prog-cta { display: block; text-align: center; padding: 11px; border-radius: 50px; font-size: 13px; font-weight: 600; text-decoration: none; transition: all 0.2s; }
+  .cta-solid { background: var(--green); color: var(--white); }
+  .cta-solid:hover { background: var(--green-dark); }
+  .cta-outline { border: 1.5px solid var(--slate); color: var(--slate); }
+  .cta-outline:hover { background: var(--slate); color: var(--white); }
+  .disc-banner { margin-top: 28px; background: var(--white); border: 1px solid var(--green); border-radius: 12px; padding: 16px 20px; display: flex; gap: 12px; align-items: flex-start; }
+  .disc-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); flex-shrink: 0; margin-top: 4px; }
+  .disc-banner p { font-size: 14px; color: var(--text-mid); line-height: 1.6; }
+  .disc-banner strong { color: var(--green); font-weight: 600; }
+
+  /* HOW IT WORKS — REDESIGNED */
+  .how { background: var(--slate); padding: 88px 6%; }
+  .how .section-eyebrow { color: var(--green); }
+  .how .section-heading { color: var(--white); }
+  .how .section-sub { color: rgba(255,255,255,0.6); margin: 0 auto; }
+  .how .section-hdr { text-align: center; }
+  .step-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 52px; }
+  .step-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; transition: transform 0.25s, background 0.25s, border-color 0.25s; }
+  .step-card:hover { transform: translateY(-6px); background: rgba(255,255,255,0.1); border-color: var(--green); }
+  .step-card-img { height: 160px; overflow: hidden; position: relative; flex-shrink: 0; }
+  .step-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.45s; filter: brightness(0.78); }
+  .step-card:hover .step-card-img img { transform: scale(1.06); filter: brightness(0.95); }
+  .step-card-body { padding: 22px 20px 24px; flex: 1; display: flex; flex-direction: column; }
+  .step-badge { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 10px; background: var(--green); color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 700; margin-bottom: 14px; flex-shrink: 0; line-height: 1; }
+  .step-card h3 { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: var(--white); margin-bottom: 8px; }
+  .step-card p { font-size: 13px; color: rgba(255,255,255,0.58); line-height: 1.65; font-weight: 300; flex: 1; }
+  .step-arrow { margin-top: 14px; font-size: 11px; font-weight: 600; color: var(--green); letter-spacing: 0.06em; text-transform: uppercase; opacity: 0; transition: opacity 0.2s; }
+  .step-card:hover .step-arrow { opacity: 1; }
+
+  /* TESTIMONIALS */
+  .testimonials { background: var(--mint); }
+  .tscroll-wrap { position: relative; overflow: hidden; margin: 0 -6%; padding: 8px 0 24px; }
+  .tscroll {
+    display: flex; gap: 20px;
+    overflow-x: auto; scroll-snap-type: x mandatory;
+    padding: 8px 6% 16px;
+    -ms-overflow-style: none; scrollbar-width: none;
+    cursor: grab;
+  }
+  .tscroll:active { cursor: grabbing; }
+  .tscroll::-webkit-scrollbar { display: none; }
+  .tcard {
+    background: var(--white); border-radius: 16px; padding: 24px;
+    border: 1px solid var(--border); display: flex; flex-direction: column;
+    min-width: 320px; max-width: 320px;
+    scroll-snap-align: start; flex-shrink: 0;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .tcard:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(61,81,102,0.1); }
+  .tcard-header { margin-bottom: 12px; }
+  .tcard-headline { font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; color: var(--slate); margin-bottom: 4px; }
+  .tcard-stars { color: #f59e0b; font-size: 13px; letter-spacing: 2px; }
+  .tcard-quote { font-size: 13px; color: var(--text-mid); line-height: 1.75; flex: 1; margin-bottom: 18px; font-style: italic; font-weight: 300; border-left: 3px solid var(--green-light); padding-left: 12px; }
+  .tcard-footer { display: flex; align-items: center; gap: 10px; }
+  .tcard-avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--green-light); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: var(--green); flex-shrink: 0; }
+  .tcard-name { font-size: 13px; font-weight: 600; color: var(--slate); }
+  .tcard-tag { font-size: 11px; color: var(--text-muted); }
+  .tscroll-nav { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 8px; }
+  .tscroll-btn { width: 36px; height: 36px; border-radius: 50%; border: 1.5px solid var(--border); background: var(--white); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: border-color 0.2s, background 0.2s; }
+  .tscroll-btn:hover { border-color: var(--green); background: var(--green-light); }
+  .tscroll-btn svg { width: 14px; height: 14px; stroke: var(--slate); }
+  .google-note { margin-top: 20px; text-align: center; font-size: 13px; color: var(--text-muted); }
+  .google-note a { color: var(--green); font-weight: 600; text-decoration: none; }
+  .google-note a:hover { text-decoration: underline; }
+
+  /* CONTACT */
+  .contact { background: var(--slate); }
+  .contact .section-heading { color: var(--white); }
+  .contact .section-sub { color: rgba(255,255,255,0.62); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 52px; align-items: start; }
+  .cform { background: var(--white); border-radius: 20px; padding: 36px; }
+  .fg { margin-bottom: 16px; }
+  .fg label { display: block; font-size: 12px; font-weight: 600; color: var(--white); margin-bottom: 6px; letter-spacing: 0.04em; }
+  .fg input, .fg textarea, .fg select { width: 100%; padding: 11px 16px; border: 1.5px solid var(--border); border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--text); background: var(--white); transition: border-color 0.2s; outline: none; appearance: none; }
+  .fg input:focus, .fg textarea:focus, .fg select:focus { border-color: var(--green); }
+  .fg textarea { resize: vertical; min-height: 96px; }
+  .fg-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .fsub { width: 100%; padding: 14px; background: var(--green); color: var(--white); border: none; border-radius: 50px; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; transition: background 0.2s, transform 0.15s; margin-top: 4px; }
+  .fsub:hover { background: var(--green-dark); transform: translateY(-1px); }
+  .cdetails { padding-top: 4px; }
+  .ci { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 24px; }
+  .ci-icon { width: 42px; height: 42px; border-radius: 12px; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .ci-icon svg { width: 18px; height: 18px; }
+  .ci-label { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--green); margin-bottom: 3px; }
+  .ci-val { font-size: 15px; color: var(--white); text-decoration: none; display: block; }
+  .ci-val:hover { color: var(--green); }
+  .social-row { display: flex; gap: 10px; margin-top: 32px; flex-wrap: wrap; }
+  .sbtn { display: flex; align-items: center; gap: 8px; padding: 9px 18px; border-radius: 50px; border: 1.5px solid rgba(255,255,255,0.2); color: var(--white); text-decoration: none; font-size: 13px; font-weight: 500; transition: all 0.2s; }
+  .sbtn:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.45); }
+  .sbtn svg { width: 15px; height: 15px; flex-shrink: 0; }
+
+  /* FOOTER */
+  footer { background: var(--slate-dark); padding: 32px 6%; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+  .footer-left { display: flex; align-items: center; gap: 16px; }
+  .footer-left img { height: 54px; width: auto; }
+  .footer-tagline { font-size: 13px; color: rgba(255,255,255,0.4); }
+  .footer-links { display: flex; gap: 22px; }
+  .footer-links a { font-size: 12px; color: var(--white); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--green); }
+  .footer-copy { font-size: 12px; color: var(--white); }
+
+  /* WHATSAPP */
+  .wa-float { position: fixed; bottom: 26px; right: 26px; z-index: 999; width: 56px; height: 56px; border-radius: 50%; background: #25D366; display: flex; align-items: center; justify-content: center; text-decoration: none; box-shadow: 0 4px 16px rgba(37,211,102,0.45); transition: transform 0.2s; animation: wapulse 2.5s infinite; }
+  .wa-float:hover { transform: scale(1.1); }
+  .wa-float svg { width: 28px; height: 28px; }
+  @keyframes wapulse { 0%,100% { box-shadow: 0 4px 16px rgba(37,211,102,0.45); } 50% { box-shadow: 0 4px 28px rgba(37,211,102,0.72); } }
+
+  /* FADE IN */
+  .fi { opacity: 0; transform: translateY(28px); transition: opacity 0.65s ease, transform 0.65s ease; }
+  .fi.show { opacity: 1; transform: translateY(0); }
+
+  /* RESPONSIVE */
+  @media (max-width: 960px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-image { display: none; }
+    .hero-content { padding: 72px 6% 64px; }
+    .about-grid { grid-template-columns: 1fr; gap: 36px; }
+    .about-img-wrap { height: 300px; }
+    .features-grid { grid-template-columns: 1fr 1fr; }
+    .prog-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+    .step-cards { grid-template-columns: 1fr 1fr; gap: 16px; }
+    .tcards { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; gap: 36px; }
+    .fg-row { grid-template-columns: 1fr; }
+    .image-strip { grid-template-columns: 1fr 1fr; height: 280px; }
+    footer { flex-direction: column; align-items: flex-start; gap: 12px; }
+  }
+  @media (max-width: 600px) {
+    section { padding: 64px 5%; }
+    .features-grid { grid-template-columns: 1fr; }
+    .how-imgs { grid-template-columns: 1fr; height: auto; border-radius: 12px; }
+    .how-img { height: 160px; }
+    .step-cards { grid-template-columns: 1fr; }
+    .stats-strip { gap: 20px; }
+    .footer-left { flex-direction: column; align-items: flex-start; gap: 8px; }
+  }
+</style>
 </head>
-<body class="antialiased">
+<body>
 
-  <!-- FULL SCREEN HERO -->
-  <div 
-    class="min-h-screen w-full flex items-center justify-center bg-cover bg-center relative"
-    style="background-image: url('/background.jpg');"
-  >
-    <!-- Overlay -->
-    <div class="absolute inset-0 bg-black/50"></div>
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <img src="logo.png" alt="Diet Done">
+  </a>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#why">Why Us</a>
+    <a href="#programmes">Programmes</a>
+    <a href="#results">Results</a>
+    <a href="#contact" class="nav-cta">Book now</a>
+  </div>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
 
-    <!-- Content -->
-    <div class="relative z-10 text-center px-6">
-
-      <!-- Logo -->
-      <div class="flex justify-center mb-6">
-        <img src="/IMG_20240107_233136.png" alt="Diet Done" class="h-24 w-auto object-contain" />
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-content">
+    <div class="hero-eyebrow">Personalised Nutrition &amp; Wellness</div>
+    <h1>Stop dieting.<br>Start <span>transforming.</span></h1>
+    <p class="hero-sub">Diet Done is your personalised nutrition and wellness programme built around real food, your lifestyle, and science that actually works. No guesswork. No fads. Just results.</p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-primary">Book your consultation →</a>
+      <a href="#programmes" class="btn-secondary">Explore programmes</a>
+    </div>
+    <div class="stats-strip">
+      <div><div class="stat-num">8+</div><div class="stat-label">Years of clinical expertise</div></div>
+      <div><div class="stat-num">550+</div><div class="stat-label">Lives transformed</div></div>
+      <div><div class="stat-num">100%</div><div class="stat-label">Personalised approach</div></div>
+    </div>
+  </div>
+  <div class="hero-image">
+    <div class="hero-collage">
+      <div class="hc-item">
+        <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600&q=85" alt="Real food">
+        <span class="hc-label">Real food</span>
       </div>
+      <div class="hc-item">
+        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&q=85" alt="Active living">
+        <span class="hc-label">Active living</span>
+      </div>
+      <div class="hc-item">
+        <img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=600&q=85" alt="Nourish">
+        <span class="hc-label">Nourish</span>
+      </div>
+      <div class="hc-item">
+        <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=600&q=85" alt="Transform">
+        <span class="hc-label">Transform</span>
+      </div>
+    </div>
+  </div>
+</section>
 
-      <!-- Brand name -->
-      <h1 class="text-4xl md:text-5xl font-bold text-white">
-        Real nutrition. Real results. Coming soon.
-      </h1>
+
+
+<!-- ABOUT -->
+<section class="about fi" id="about">
+  <div class="section-hdr">
+    <span class="section-eyebrow">About Diet Done</span>
+    <h2 class="section-heading">We believe health is personal.<br>So is your diet.</h2>
+  </div>
+  <div class="about-grid">
+    <div class="about-img-wrap">
+      <img src="https://images.unsplash.com/photo-1543362906-acfc16c67564?w=800&q=85" alt="Nutrition consultation">
+    </div>
+    <div class="about-text">
+      <p>Diet Done was built on one simple truth. There is no one-size-fits-all solution to health. Every body is different. Every lifestyle is different. Every goal deserves its own plan.</p>
+      <p>Backed by over 8 years of clinical practice and a deep understanding of the emotional, physical, and biochemical factors that shape your wellbeing, Diet Done brings you evidence-based nutrition that fits your life and not the other way around.</p>
+      <p>From fertility and paediatric nutrition to diabetes management, weight transformation, and gastrointestinal care, Diet Done covers the full spectrum of your wellness journey.</p>
+      <div class="cred-group">
+        <span class="cred-label">Areas of expertise</span>
+        <div class="cred-pills">
+          <span class="pill pill-green">Fertility and pre-natal nutrition</span>
+          <span class="pill pill-green">Paediatric nutrition</span>
+          <span class="pill pill-green">Weight management</span>
+          <span class="pill pill-green">Diabetes and metabolic health</span>
+          <span class="pill pill-green">GI and psychosomatic disorders</span>
+          <span class="pill pill-green">Lifestyle disorder reversal</span>
+        </div>
+        <span class="cred-label">Credentials behind Diet Done</span>
+        <div class="cred-pills">
+          <span class="pill">M.Sc. Foods and Nutrition</span>
+          <span class="pill">M.Sc. Dietetics and Food Service Management</span>
+          <span class="pill">Certified Diabetes Educator</span>
+          <span class="pill">NASM Certified Nutrition Coach</span>
+          <span class="pill">Food Safety and Quality Auditor</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY DIET DONE -->
+<section class="why fi" id="why">
+  <div class="section-hdr">
+    <span class="section-eyebrow">Why Diet Done</span>
+    <h2 class="section-heading">What makes Diet Done different</h2>
+    <p class="section-sub">We do not just hand you a meal plan. We build a system that works for your body, your schedule, and your life.</p>
+  </div>
+  <div class="features-grid">
+    <div class="fcard">
+      <div class="fcard-icon"><svg fill="none" viewBox="0 0 20 20"><path d="M10 2C7 2 4 5 4 8c0 4 6 10 6 10s6-6 6-10c0-3-3-6-6-6z" stroke="#3DB54A" stroke-width="1.5"/><circle cx="10" cy="8" r="2" fill="#3DB54A"/></svg></div>
+      <h3>Real food. Always.</h3>
+      <p>Homemade meals, local ingredients, and zero fancy or expensive substitutes. Ever.</p>
+    </div>
+    <div class="fcard">
+      <div class="fcard-icon"><svg fill="none" viewBox="0 0 20 20"><circle cx="10" cy="10" r="7" stroke="#3DB54A" stroke-width="1.5"/><path d="M10 6v4l3 2" stroke="#3DB54A" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+      <h3>Full-day coverage</h3>
+      <p>From your morning ritual to your bedtime snack, every meal and every moment is planned.</p>
+    </div>
+    <div class="fcard">
+      <div class="fcard-icon"><svg fill="none" viewBox="0 0 20 20"><rect x="3" y="4" width="14" height="12" rx="2" stroke="#3DB54A" stroke-width="1.5"/><path d="M7 9h6M7 12h4" stroke="#3DB54A" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+      <h3>Science-backed precision</h3>
+      <p>Biochemical assessments and dietary analysis ensure your plan is built for your body specifically.</p>
+    </div>
+    <div class="fcard">
+      <div class="fcard-icon"><svg fill="none" viewBox="0 0 20 20"><path d="M10 3l2 4h4l-3 3 1 4-4-2-4 2 1-4-3-3h4z" stroke="#3DB54A" stroke-width="1.5" stroke-linejoin="round"/></svg></div>
+      <h3>Built-in accountability</h3>
+      <p>Meal photo verification, weekly challenges, and streaks keep you on track every single day.</p>
+    </div>
+    <div class="fcard">
+      <div class="fcard-icon"><svg fill="none" viewBox="0 0 20 20"><path d="M3 10h2l2-6 3 12 2-8 2 4h3" stroke="#3DB54A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <h3>Life does not pause. Neither does your diet.</h3>
+      <p>Travel, vacations, and parties all come with special guidelines so you stay aligned wherever life takes you.</p>
+    </div>
+    <div class="fcard">
+      <div class="fcard-icon"><svg fill="none" viewBox="0 0 20 20"><path d="M4 10c0-3.3 2.7-6 6-6s6 2.7 6 6-2.7 6-6 6" stroke="#3DB54A" stroke-width="1.5" stroke-linecap="round"/><path d="M10 7v3l2 2" stroke="#3DB54A" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+      <h3>Continuously optimised</h3>
+      <p>Monthly plan updates ensure your diet evolves as your body and goals change over time.</p>
+    </div>
+  </div>
+  <div class="payment-note">
+    <p><strong>Flexible payment options available.</strong> We believe good nutrition should be accessible. All Diet Done programmes come with easy payment plans so you can start your journey without financial stress. Reach out to know more.</p>
+  </div>
+</section>
+
+<!-- MOTIVATIONAL BANNER -->
+<div class="motive-banner">
+  <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=1400&q=85" alt="Transformation journey" style="object-position: center 50%;">
+  <div class="motive-overlay">
+    <div class="motive-text">
+      <h2>Every transformation starts with one decision.</h2>
+      <p>Hundreds of people have taken that first step with Diet Done. Your plan, your pace, your results.</p>
+    </div>
+  </div>
+</div>
+
+<!-- PROGRAMMES -->
+<section class="programmes fi" id="programmes">
+  <div class="section-hdr">
+    <span class="section-eyebrow">Programmes and pricing</span>
+    <h2 class="section-heading">Find the programme that is built for you</h2>
+    <p class="section-sub">Every Diet Done programme is personalised to your body, your goals, and your life. Transparent pricing, no hidden costs, flexible payment options on all plans.</p>
+  </div>
+  <div class="prog-grid">
+
+    <div class="prog-card">
+      <div class="prog-img">
+        <img src="https://images.unsplash.com/photo-1542367592-8849eb950fd8?q=80&w=600" alt="Lifestyle nutrition">
+        <div class="prog-img-overlay"></div>
+      </div>
+      <div class="prog-body">
+        <div class="prog-icon" style="background:#EAF3DE;">
+          <svg width="22" height="22" fill="none" viewBox="0 0 22 22"><path d="M11 3C8 3 5.5 5.5 5.5 8.5c0 4.5 5.5 10.5 5.5 10.5s5.5-6 5.5-10.5C16.5 5.5 14 3 11 3z" stroke="#3DB54A" stroke-width="1.5"/><circle cx="11" cy="8.5" r="2" fill="#3DB54A"/></svg>
+        </div>
+        <h3>Lifestyle</h3>
+        <div class="prog-price">Starting at ₹1,999 per month</div>
+        <div class="prog-discount">Discounts available for 3 and 6 month plans</div>
+        <p class="prog-desc">For anyone who wants to feel better, look better, and build habits that actually last without giving up the life they love.</p>
+        <div class="dur-row">
+          <span class="dur-pill">1 month</span>
+          <span class="dur-pill">3 months</span>
+          <span class="dur-pill">6 months</span>
+        </div>
+      </div>
+      <div class="prog-divider"></div>
+      <div class="prog-list">
+        <div class="prog-li"><div class="prog-dot"></div><span>Weight loss and weight gain</span></div>
+        <div class="prog-li"><div class="prog-dot"></div><span>General wellness and energy</span></div>
+        <div class="prog-li"><div class="prog-dot"></div><span>Gut reset and digestive health</span></div>
+        <div class="prog-li"><div class="prog-dot"></div><span>Detox and anti-inflammatory reset</span></div>
+        <div class="prog-li"><div class="prog-dot"></div><span>Skin, hair and nail nutrition</span></div>
+      </div>
+      <div class="prog-footer">
+        <a href="#contact" class="prog-cta cta-outline">Explore lifestyle plans</a>
+      </div>
+    </div>
+
+    <div class="prog-card featured">
+      <div class="prog-img">
+        <img src="https://images.unsplash.com/photo-1682342287771-ba352ea7e315?q=80&w=600" alt="Clinical nutrition">
+        <div class="prog-img-overlay"></div>
+      </div>
+      <div class="prog-body">
+        <span class="prog-badge">Most consulted</span>
+        <div class="prog-icon" style="background:#E6F1FB;">
+          <svg width="22" height="22" fill="none" viewBox="0 0 22 22"><rect x="3" y="4" width="16" height="14" rx="2.5" stroke="#3D5166" stroke-width="1.5"/><path d="M7 10h8M7 13.5h5" stroke="#3D5166" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Clinical</h3>
+        <div class="prog-price">Starting at ₹9,999 for 3 months</div>
+        <div class="prog-discount">Discounts available for 6 and 12 month plans</div>
+        <p class="prog-desc">For those managing a diagnosed health condition where nutrition is not optional. Evidence-based, medically informed care tailored to your diagnosis.</p>
+        <div class="dur-row">
+          <span class="dur-pill">3 months</span>
+          <span class="dur-pill">6 months</span>
+          <span class="dur-pill">12 months</span>
+        </div>
+      </div>
+      <div class="prog-divider"></div>
+      <div class="prog-list">
+        <div class="prog-li"><div class="prog-dot"></div><span>Diabetes and metabolic health</span></div>
+        <div class="prog-li"><div class="prog-dot"></div><span>Thyroid and hormonal disorders</span></div>
+        <div class="prog-li"><div class="prog-dot"></div><span>Gastrointestinal and IBS care</span></div>
+        <div class="prog-li"><div class="prog-dot"></div><span>Geriatric nutrition</span></div>
+        <div class="prog-li"><div class="prog-dot"></div><span>Cardiovascular and cholesterol</span></div>
+      </div>
+      <div class="prog-footer">
+        <a href="#contact" class="prog-cta cta-solid">Explore clinical plans</a>
+      </div>
+    </div>
+
+    <div class="prog-card">
+      <div class="prog-img">
+        <img src="https://images.unsplash.com/photo-1634856435843-9f5c207b0db5?q=80&w=687" alt="Women and family nutrition" style="object-position: center;">
+        <div class="prog-img-overlay"></div>
+      </div>
+      <div class="prog-body">
+        <div class="prog-icon" style="background:#FDF0F4;">
+          <svg width="22" height="22" fill="none" viewBox="0 0 22 22"><path d="M11 3C8.5 3 6.5 5 6.5 7.5c0 4 4.5 9.5 4.5 9.5s4.5-5.5 4.5-9.5C15.5 5 13.5 3 11 3z" stroke="#D4537E" stroke-width="1.5"/><circle cx="11" cy="7.5" r="1.8" fill="#D4537E"/></svg>
+        </div>
+        <h3>Women and family</h3>
+        <div class="prog-price">Starting at ₹9,999 for 3 months</div>
+        <div class="prog-discount">Discounts available for 6 and 9 month plans</div>
+        <p class="prog-desc">Nutrition that understands the female body at every stage and extends to the health of your children and family.</p>
+        <div class="dur-row">
+          <span class="dur-pill">1 month</span>
+          <span class="dur-pill">3 months</span>
+          <span class="dur-pill">6 months</span>
+          <span class="dur-pill">9 months</span>
+        </div>
+      </div>
+      <div class="prog-divider"></div>
+      <div class="prog-list">
+        <div class="prog-li"><div class="prog-dot"></div><span>PCOS and PCOD management</span></div>
+        <div class="prog-li"><div class="prog-dot"></div><span>Fertility and pre-conception nutrition</span></div>
+        <div class="prog-li"><div class="prog-dot"></div><span>Prenatal and postnatal care</span></div>
+        <div class="prog-li"><div class="prog-dot"></div><span>Child and infant nutrition</span></div>
+        <div class="prog-li"><div class="prog-dot"></div><span>Women's hormonal longevity</span></div>
+      </div>
+      <div class="prog-footer">
+        <a href="#contact" class="prog-cta cta-outline">Explore women and family plans</a>
+      </div>
+    </div>
+
+  </div>
+  <div class="disc-banner">
     
-      <!-- Divider -->
-      <div class="mt-8 flex justify-center">
-        <div class="h-1 w-24 rounded" style="background: var(--brand-green);"></div>
+    <p><strong>Commit longer, save more.</strong> All Diet Done programmes offer special discounts on 3, 6, and 12 month plans. Flexible payment options are also available so you can start your journey without financial stress. Reach out to find the plan that works for your budget.</p>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how fi" id="how">
+  <div class="section-hdr">
+    <span class="section-eyebrow">The process</span>
+    <h2 class="section-heading">Your transformation in 4 steps</h2>
+    <p class="section-sub">From your very first conversation to ongoing coaching, here is exactly what happens when you join Diet Done.</p>
+  </div>
+  <div class="step-cards">
+
+    <div class="step-card">
+      <div class="step-card-img">
+        <img src="https://images.unsplash.com/photo-1681505531034-8d67054e07f6?q=80&w=1170" alt="Initial consultation">
+      </div>
+      <div class="step-card-body">
+        <div class="step-badge">1</div>
+        <h3>Initial consultation</h3>
+        <p>An in-depth review of your health history, lifestyle, and goals so we know exactly where you are starting from.</p>
+        <div class="step-arrow">Start here</div>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-card-img">
+        <img src="https://images.unsplash.com/photo-1666886573301-b5d526cfd518?q=80&w=687" alt="Biochemical review" style="object-position: center 40%;">
+      </div>
+      <div class="step-card-body">
+        <div class="step-badge">2</div>
+        <h3>Biochemical review</h3>
+        <p>Your blood work is analysed to build a nutrition plan that is precise, personalised, and medically grounded.</p>
+        <div class="step-arrow">Science-led</div>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-card-img">
+        <img src="https://images.unsplash.com/photo-1711153419402-336ee48f2138?q=80&w=1153" alt="Your custom plan">
+      </div>
+      <div class="step-card-body">
+        <div class="step-badge">3</div>
+        <h3>Your custom plan</h3>
+        <p>Receive your fully personalised meal and wellness programme built around your body, your food, and your life.</p>
+        <div class="step-arrow">Built for you</div>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-card-img">
+        <img src="https://images.unsplash.com/photo-1461532257246-777de18cd58b?q=80&w=1176" alt="Ongoing coaching">
+      </div>
+      <div class="step-card-body">
+        <div class="step-badge">4</div>
+        <h3>Ongoing coaching</h3>
+        <p>Weekly follow-ups, real-time adjustments, and consistent motivation at every step of the way.</p>
+        <div class="step-arrow">Always with you</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials fi" id="results">
+  <div class="section-hdr">
+    <span class="section-eyebrow">Client results</span>
+    <h2 class="section-heading">Real people. Real results.</h2>
+    <p class="section-sub">Over 550 clients have transformed their health with Diet Done. Scroll to read their stories.</p>
+  </div>
+  <div class="tscroll-wrap">
+    <div class="tscroll" id="tscroll">
+
+      <div class="tcard">
+        <div class="tcard-header">
+          <div class="tcard-headline">12 kg Down &mdash; The Healthy Way</div>
+          <div class="tcard-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        </div>
+        <p class="tcard-quote">With the amazing diet plan and constant motivation, I&#39;ve been able to lose 12 kg &mdash; and the best part is, it was all done in a healthy and sustainable way. It never felt like I was starving or restricted. I genuinely enjoyed the meals.</p>
+        <div class="tcard-footer">
+          <div class="tcard-avatar">V</div>
+          <div><div class="tcard-name">Vani</div><div class="tcard-tag">Weight loss client</div></div>
+        </div>
       </div>
 
-      <!-- Footer note -->
-      <div class="mt-10 text-sm text-gray-300">
-        © 2026 Diet Done. All rights reserved.
+      <div class="tcard">
+        <div class="tcard-header">
+          <div class="tcard-headline">Lost 8 kg in 6 Months</div>
+          <div class="tcard-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        </div>
+        <p class="tcard-quote">She has taught me how to eat mindfully without giving up on our favourite foods. My 6-month journey was wholesome &mdash; I am down by 8 kgs now with more inch loss and the confidence to love myself more.</p>
+        <div class="tcard-footer">
+          <div class="tcard-avatar">S</div>
+          <div><div class="tcard-name">Sumitha</div><div class="tcard-tag">Long-term client</div></div>
+        </div>
+      </div>
+
+      <div class="tcard">
+        <div class="tcard-header">
+          <div class="tcard-headline">BP &amp; Cholesterol Reversed, 8 kg Down</div>
+          <div class="tcard-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        </div>
+        <p class="tcard-quote">My blood pressure has returned to normal levels and my cholesterol is now under control. I weighed 86.4 kg when I joined and I am now down to 78.3 kg. I feel remarkably better, both physically and mentally. Now my wife has also joined.</p>
+        <div class="tcard-footer">
+          <div class="tcard-avatar">V</div>
+          <div><div class="tcard-name">Vipin</div><div class="tcard-tag">Clinical client</div></div>
+        </div>
+      </div>
+
+      <div class="tcard">
+        <div class="tcard-header">
+          <div class="tcard-headline">Lost 4 kg &amp; Sleeping Better</div>
+          <div class="tcard-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        </div>
+        <p class="tcard-quote">I&#39;ve seen real results after struggling with a few other dieticians in the past. I have lost 4 kgs, improved my fitness, energy levels and sleep duration which is phenomenal. She&#39;s not just knowledgeable but committed as well.</p>
+        <div class="tcard-footer">
+          <div class="tcard-avatar">H</div>
+          <div><div class="tcard-name">Habib</div><div class="tcard-tag">Working professional</div></div>
+        </div>
+      </div>
+
+      <div class="tcard">
+        <div class="tcard-header">
+          <div class="tcard-headline">From Thyroid Struggles to Feeling Lighter</div>
+          <div class="tcard-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        </div>
+        <p class="tcard-quote">As a new mom dealing with thyroid issues, acid reflux, inflammation and joint pain, losing weight felt impossible. Her consistent support and personalised food plans made a real difference. I now feel lighter, more energetic, and mentally better.</p>
+        <div class="tcard-footer">
+          <div class="tcard-avatar">W</div>
+          <div><div class="tcard-name">Wajeeha</div><div class="tcard-tag">New mom &amp; thyroid client</div></div>
+        </div>
+      </div>
+
+      <div class="tcard">
+        <div class="tcard-header">
+          <div class="tcard-headline">Acidity &amp; Joint Pain Eased</div>
+          <div class="tcard-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        </div>
+        <p class="tcard-quote">Acidity has reduced a lot. No burping. Flatulence has reduced significantly. My chronic joint pain that I was complaining about has come down. I&#39;m having 2.2L water total in the day &mdash; a new habit I never had before.</p>
+        <div class="tcard-footer">
+          <div class="tcard-avatar">K</div>
+          <div><div class="tcard-name">Kaviya</div><div class="tcard-tag">Gut health client</div></div>
+        </div>
+      </div>
+
+      <div class="tcard">
+        <div class="tcard-header">
+          <div class="tcard-headline">Cycle Back on Track, PMS Down</div>
+          <div class="tcard-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        </div>
+        <p class="tcard-quote">I got my period just now. It&#39;s a 32-day cycle &mdash; after a long time I got it normal. Weight is also coming down a bit, but the other benefits are more valuable. I have so much energy and less PMS.</p>
+        <div class="tcard-footer">
+          <div class="tcard-avatar">R</div>
+          <div><div class="tcard-name">Rashmi</div><div class="tcard-tag">Hormonal health client</div></div>
+        </div>
+      </div>
+
+      <div class="tcard">
+        <div class="tcard-header">
+          <div class="tcard-headline">Lost 7&ndash;8 kg in Just 2 Months</div>
+          <div class="tcard-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        </div>
+        <p class="tcard-quote">I followed the diet for just 2 months. I reduced around 5 kgs in the first month and 2&ndash;3 kgs in the second &mdash; altogether 7&ndash;8 kgs. I didn&#39;t even do workouts. The only physical activity was playing badminton.</p>
+        <div class="tcard-footer">
+          <div class="tcard-avatar">B</div>
+          <div><div class="tcard-name">Bala Murugan</div><div class="tcard-tag">Weight loss client</div></div>
+        </div>
+      </div>
+
+      <div class="tcard">
+        <div class="tcard-header">
+          <div class="tcard-headline">Tailored Plans, Real Attention</div>
+          <div class="tcard-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        </div>
+        <p class="tcard-quote">What stood out the most was how patiently she listened to our concerns. She doesn&#39;t follow a one-size-fits-all plan &mdash; instead, she suggests a diet tailored specifically based on age, health condition, and other important parameters.</p>
+        <div class="tcard-footer">
+          <div class="tcard-avatar">J</div>
+          <div><div class="tcard-name">John VK</div><div class="tcard-tag">Family client</div></div>
+        </div>
+      </div>
+
+      <div class="tcard">
+        <div class="tcard-header">
+          <div class="tcard-headline">Energy Up, Cravings Down</div>
+          <div class="tcard-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        </div>
+        <p class="tcard-quote">This diet really worked for me. I didn&#39;t feel stressed or restricted, and the results came naturally. My energy improved, my cravings reduced, and I feel so much better overall. I&#39;m really happy with the outcome.</p>
+        <div class="tcard-footer">
+          <div class="tcard-avatar">Y</div>
+          <div><div class="tcard-name">Yogeswari</div><div class="tcard-tag">Wellness client</div></div>
+        </div>
       </div>
 
     </div>
   </div>
+  <div class="tscroll-nav">
+    <button class="tscroll-btn" onclick="scrollT(-1)" aria-label="Previous">
+      <svg viewBox="0 0 14 14" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9,2 4,7 9,12"/></svg>
+    </button>
+    <button class="tscroll-btn" onclick="scrollT(1)" aria-label="Next">
+      <svg viewBox="0 0 14 14" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="5,2 10,7 5,12"/></svg>
+    </button>
+  </div>
+  <p class="google-note">Read more reviews on <a href="https://maps.app.goo.gl/r4JTcXRaUiJDH8BEA" target="_blank" rel="noopener">Google &#8599;</a></p>
+</section>
 
+<!-- CONTACT -->
+<section class="contact fi" id="contact">
+  <div class="section-hdr">
+    <span class="section-eyebrow" style="color: #ffffff;">Get in touch</span>
+    <h2 class="section-heading">Ready to begin? Let's talk.</h2>
+    <p class="section-sub">Your first step toward a healthier, more energised version of yourself is just one conversation away.</p>
+  </div>
+  <div class="contact-grid">
+    <form class="cform" id="enquiryForm">
+      <div class="fg-row">
+        <div class="fg"><label>Your name</label><input type="text" name="name" placeholder="Full name"></div>
+        <div class="fg"><label>Phone number</label><input type="tel" name="phone" placeholder="+91 00000 00000"></div>
+      </div>
+      <div class="fg"><label>Email address</label><input type="email" name="email" placeholder="you@email.com"></div>
+      <div class="fg">
+        <label>Programme of interest</label>
+        <select name="programme">
+          <option value="">Select a programme</option>
+          <option>Lifestyle</option>
+          <option>Clinical</option>
+          <option>Women and family</option>
+          <option>Not sure yet</option>
+        </select>
+      </div>
+      <div class="fg"><label>Your message</label><textarea name="message" placeholder="Tell us about your health goals..."></textarea></div>
+      <button type="submit" class="fsub">Send my enquiry</button>
+    </form>
+    <div class="cdetails">
+      <div class="ci">
+        <div class="ci-icon"><svg fill="none" viewBox="0 0 18 18" stroke="white" stroke-width="1.5"><path d="M15.5 12.5c0 .4-.1.8-.3 1.2-.2.4-.4.7-.7 1-.5.5-1 .8-1.6.8-.4 0-.9-.1-1.4-.4-2.1-1-4-2.4-5.6-4-.7-.7-1.2-1.5-1.7-2.3-.5-.8-.7-1.5-.7-2.1 0-.5.1-1 .4-1.4.3-.5.7-.9 1.2-1.1.2-.1.5-.2.7-.2.5 0 .8.2 1 .6l1.3 2.4c.1.3.2.5.2.7 0 .3-.2.6-.4.8l-.5.5c-.1.1-.1.2-.1.3.3.5.6 1 1 1.5.7.8 1.5 1.4 2.3 1.9l.3-.4c.3-.3.5-.4.9-.4.2 0 .4 0 .7.2l2.3 1.3c.4.2.6.5.6.9z"/></svg></div>
+        <div><div class="ci-label">Phone and WhatsApp</div><a href="tel:+919003046273" class="ci-val">+91 90030 46273</a></div>
+      </div>
+      <div class="ci">
+        <div class="ci-icon"><svg fill="none" viewBox="0 0 18 18" stroke="white" stroke-width="1.5"><rect x="2" y="4" width="14" height="10" rx="2"/><path d="M2 6l7 5 7-5"/></svg></div>
+        <div><div class="ci-label">Email</div><a href="mailto:yourdietdone@gmail.com" class="ci-val">yourdietdone@gmail.com</a></div>
+      </div>
+      <div class="ci">
+        <div class="ci-icon"><svg fill="none" viewBox="0 0 18 18" stroke="white" stroke-width="1.5"><path d="M9 2C5.7 2 3 4.7 3 8c0 4.5 6 10 6 10s6-5.5 6-10c0-3.3-2.7-6-6-6z"/><circle cx="9" cy="8" r="2"/></svg></div>
+        <div><div class="ci-label">Find us</div><a href="https://maps.app.goo.gl/r4JTcXRaUiJDH8BEA" target="_blank" class="ci-val">View on Google Maps ↗</a></div>
+      </div>
+      <div class="social-row">
+        <a href="https://www.instagram.com/yourdietdone" target="_blank" rel="noopener" class="sbtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="white" stroke="none"/></svg>
+          Instagram
+        </a>
+        <a href="https://www.facebook.com/yourdietdone/" target="_blank" rel="noopener" class="sbtn">
+          <svg viewBox="0 0 24 24" fill="white" width="15" height="15"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          Facebook
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">
+    <img src="logo.png" alt="Diet Done">
+  </div>
+  <div class="footer-links">
+    <a href="#about">About</a>
+    <a href="#programmes">Programmes</a>
+    <a href="#results">Results</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="footer-copy">© 2026 Diet Done. All rights reserved.</div>
+</footer>
+
+<!-- FLOATING WHATSAPP -->
+<a href="https://wa.me/919003046273" target="_blank" rel="noopener" class="wa-float" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.554 4.103 1.524 5.828L.057 23.57a.5.5 0 0 0 .61.633l5.917-1.55A11.95 11.95 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.013-1.374l-.36-.213-3.717.974.99-3.617-.234-.373A9.818 9.818 0 0 1 2.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
+</a>
+
+<script>
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.fi').forEach(el => obs.observe(el));
+
+  function toggleMenu() {
+    const nl = document.querySelector('.nav-links');
+    const open = nl.style.display === 'flex';
+    nl.style.cssText = open ? '' : 'display:flex;flex-direction:column;position:absolute;top:76px;left:0;right:0;background:#fff;padding:20px 6%;gap:14px;z-index:99;border-bottom:1px solid #e5e7eb;box-shadow:0 8px 24px rgba(0,0,0,0.07);';
+  }
+
+  function scrollT(dir) {
+    const el = document.getElementById('tscroll');
+    el.scrollBy({ left: dir * 356, behavior: 'smooth' });
+  }
+
+  (function() {
+    const el = document.getElementById('tscroll');
+    if (!el) return;
+    let isDown = false, startX, scrollLeft;
+    el.addEventListener('mousedown', e => { isDown = true; el.classList.add('active'); startX = e.pageX - el.offsetLeft; scrollLeft = el.scrollLeft; });
+    el.addEventListener('mouseleave', () => { isDown = false; });
+    el.addEventListener('mouseup', () => { isDown = false; });
+    el.addEventListener('mousemove', e => { if (!isDown) return; e.preventDefault(); const x = e.pageX - el.offsetLeft; el.scrollLeft = scrollLeft - (x - startX); });
+  })();
+
+  document.getElementById('enquiryForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    var form = e.target;
+    var btn = form.querySelector('.fsub');
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+
+    fetch('https://script.google.com/macros/s/AKfycbyFmIHC_k5csTjAaSG729j6XMQWmTPFfw4g4sHWlCryBNolh6xKbXqm78bcMaXxdLD2/exec', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+  body: new URLSearchParams(new FormData(form)).toString()
+})
+    .then(function() {
+      btn.textContent = 'Thanks for your interest! We will be in touch shortly.';
+      btn.style.background = '#2d9138';
+      form.reset();
+    })
+    .catch(function() {
+      btn.textContent = 'Something went wrong. Please WhatsApp us at +91 9003046273.';
+      btn.disabled = false;
+    });
+  });
+</script>
 </body>
 </html>
