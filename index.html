@@ -43,6 +43,7 @@
   .nav-links a:hover { color: var(--green); }
   .nav-cta { background: var(--green) !important; color: var(--white) !important; padding: 9px 22px; border-radius: 50px; font-weight: 600 !important; }
   .nav-cta:hover { background: var(--green-dark) !important; }
+  .nav-right { display: flex; align-items: center; gap: 12px; }
   .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; border: none; background: none; padding: 4px; }
   .hamburger span { width: 22px; height: 2px; background: var(--slate); border-radius: 2px; display: block; }
 
@@ -260,6 +261,8 @@
 
   /* RESPONSIVE */
   @media (max-width: 960px) {
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
     .hero { grid-template-columns: 1fr; }
     .hero-image { display: none; }
     .hero-content { padding: 72px 6% 64px; }
@@ -293,16 +296,18 @@
   <a href="#" class="nav-logo">
     <img src="logo.png" alt="Diet Done">
   </a>
-  <div class="nav-links">
+  <div class="nav-links" id="navLinks">
     <a href="#about">About</a>
     <a href="#why">Why Us</a>
     <a href="#programmes">Programmes</a>
     <a href="#results">Results</a>
-    <a href="#contact" class="nav-cta">Book now</a>
   </div>
-  <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
+  <div class="nav-right">
+    <a href="#contact" class="nav-cta">Book now</a>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </nav>
 
 <!-- HERO -->
@@ -834,9 +839,15 @@
   document.querySelectorAll('.fi').forEach(el => obs.observe(el));
 
   function toggleMenu() {
-    const nl = document.querySelector('.nav-links');
-    const open = nl.style.display === 'flex';
-    nl.style.cssText = open ? '' : 'display:flex;flex-direction:column;position:absolute;top:76px;left:0;right:0;background:#fff;padding:20px 6%;gap:14px;z-index:99;border-bottom:1px solid #e5e7eb;box-shadow:0 8px 24px rgba(0,0,0,0.07);';
+    const nl = document.getElementById('navLinks');
+    const open = nl.classList.contains('open');
+    if (open) {
+      nl.classList.remove('open');
+      nl.style.cssText = '';
+    } else {
+      nl.classList.add('open');
+      nl.style.cssText = 'display:flex;flex-direction:column;position:absolute;top:76px;left:0;right:0;background:#fff;padding:20px 6%;gap:18px;z-index:99;border-bottom:1px solid #e5e7eb;box-shadow:0 8px 24px rgba(0,0,0,0.07);';
+    }
   }
 
   function scrollT(dir) {
